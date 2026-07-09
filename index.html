@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Turner & Associates — Personal Injury Lawyers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0d1b2a;
+      --navy-mid: #162032;
+      --navy-light: #1e2e42;
+      --gold: #c9a84c;
+      --gold-light: #e2c97e;
+      --white: #f5f2ec;
+      --muted: #8a9bb0;
+      --panel-width: 380px;
+      --chat-radius: 12px;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── LAYOUT SHELL ── */
+    #app {
+      display: flex;
+      height: 100vh;
+      transition: padding-right 0.3s ease;
+    }
+
+    #main-content {
+      flex: 1;
+      overflow-y: auto;
+      transition: margin-right 0.3s ease;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      background: rgba(13,27,42,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+
+    .logo span { color: var(--gold); }
+
+    nav ul {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    nav ul a {
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      padding: 8px 20px;
+      font-size: 0.75rem !important;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold) !important;
+      color: var(--navy) !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: calc(100vh - 68px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+      padding: 80px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 6px 14px;
+      margin-bottom: 28px;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      padding: 14px 32px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(245,242,236,0.25);
+      padding: 14px 32px;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover { border-color: var(--white); }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(245,242,236,0.08);
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* hero right — practice areas card */
+    .hero-card {
+      background: var(--navy-mid);
+      border: 1px solid rgba(201,168,76,0.12);
+      padding: 36px;
+    }
+
+    .hero-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      margin-bottom: 24px;
+    }
+
+    .practice-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .practice-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      background: rgba(255,255,255,0.02);
+      border: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      cursor: default;
+    }
+
+    .practice-list li:hover {
+      border-color: rgba(201,168,76,0.2);
+      color: var(--white);
+      background: rgba(201,168,76,0.04);
+    }
+
+    .practice-list li::before {
+      content: '⚖';
+      font-size: 0.7rem;
+      color: var(--gold);
+      opacity: 0.7;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 80px 48px;
+    }
+
+    section + section {
+      border-top: 1px solid rgba(245,242,236,0.06);
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 48px;
+    }
+
+    /* Why Us */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .why-card {
+      background: var(--navy-mid);
+      padding: 36px 28px;
+      border: 1px solid rgba(201,168,76,0.08);
+    }
+
+    .why-icon {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+
+    .why-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .why-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* Testimonials */
+    .testimonials { background: var(--navy-mid); }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .testi-card {
+      background: var(--navy);
+      border: 1px solid rgba(201,168,76,0.1);
+      padding: 28px;
+    }
+
+    .testi-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .testi-author {
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact-info p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .contact-detail {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-detail span {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .contact-detail strong {
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    footer {
+      padding: 24px 48px;
+      border-top: 1px solid rgba(245,242,236,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ═══════════════════════════════════════
+       CHAT SYSTEM
+    ═══════════════════════════════════════ */
+
+    /* Bottom bar — shown before first message */
+    #chat-bar {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: var(--navy-mid);
+      border: 1px solid rgba(201,168,76,0.25);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      width: min(600px, calc(100vw - 48px));
+      transition: opacity 0.25s, transform 0.25s;
+    }
+
+    #chat-bar.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(12px);
+    }
+
+    #chat-bar-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+      border-right: 1px solid rgba(201,168,76,0.15);
+    }
+
+    #chat-bar-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--gold);
+    }
+
+    #chat-bar-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 0 16px;
+      height: 52px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: var(--white);
+    }
+
+    #chat-bar-input::placeholder { color: var(--muted); }
+
+    #chat-bar-send {
+      width: 52px;
+      height: 52px;
+      background: var(--gold);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    #chat-bar-send:hover { background: var(--gold-light); }
+
+    #chat-bar-send svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--navy);
+    }
+
+    /* ── SIDE PANEL ── */
+    #chat-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: var(--panel-width);
+      height: 100vh;
+      background: var(--navy-mid);
+      border-left: 1px solid rgba(201,168,76,0.15);
+      display: flex;
+      flex-direction: column;
+      z-index: 500;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: -8px 0 32px rgba(0,0,0,0.4);
+    }
+
+    #chat-panel.open {
+      transform: translateX(0);
+    }
+
+    /* Drag handle */
+    #panel-resizer {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      cursor: ew-resize;
+      background: transparent;
+      transition: background 0.2s;
+      z-index: 10;
+    }
+
+    #panel-resizer:hover,
+    #panel-resizer.dragging {
+      background: rgba(201,168,76,0.4);
+    }
+
+    /* Panel header */
+    #panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+      flex-shrink: 0;
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .panel-avatar {
+      width: 32px;
+      height: 32px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .panel-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .panel-status {
+      font-size: 0.7rem;
+      color: #4caf7d;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .panel-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #4caf7d;
+      border-radius: 50%;
+    }
+
+    #panel-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    #panel-close:hover { color: var(--white); }
+
+    /* Messages */
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+    }
+
+    #messages::-webkit-scrollbar { width: 4px; }
+    #messages::-webkit-scrollbar-track { background: transparent; }
+    #messages::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.2); border-radius: 2px; }
+
+    .msg {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      animation: msgIn 0.2s ease;
+    }
+
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg.user { align-items: flex-end; }
+    .msg.assistant { align-items: flex-start; }
+
+    .msg-bubble {
+      max-width: 85%;
+      padding: 11px 15px;
+      font-size: 0.82rem;
+      line-height: 1.65;
+      border-radius: var(--chat-radius);
+    }
+
+    .msg.user .msg-bubble {
+      background: var(--gold);
+      color: var(--navy);
+      border-bottom-right-radius: 3px;
+      font-weight: 400;
+    }
+
+    .msg.assistant .msg-bubble {
+      background: var(--navy-light);
+      color: var(--white);
+      border-bottom-left-radius: 3px;
+      border: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .msg-time {
+      font-size: 0.65rem;
+      color: var(--muted);
+      padding: 0 4px;
+    }
+
+    /* Typing indicator */
+    .typing-bubble {
+      background: var(--navy-light);
+      border: 1px solid rgba(201,168,76,0.1);
+      padding: 14px 16px;
+      border-radius: var(--chat-radius);
+      border-bottom-left-radius: 3px;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--muted);
+      border-radius: 50%;
+      animation: typingPulse 1.2s infinite ease-in-out;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingPulse {
+      0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Panel input */
+    #panel-input-area {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(201,168,76,0.12);
+      flex-shrink: 0;
+    }
+
+    #panel-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: var(--navy);
+      border: 1px solid rgba(201,168,76,0.2);
+      transition: border-color 0.2s;
+    }
+
+    #panel-input-wrap:focus-within {
+      border-color: rgba(201,168,76,0.5);
+    }
+
+    #panel-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 12px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      color: var(--white);
+      resize: none;
+      height: 44px;
+      line-height: 1.4;
+    }
+
+    #panel-input::placeholder { color: var(--muted); }
+
+    #panel-send {
+      width: 44px;
+      height: 44px;
+      background: var(--gold);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    #panel-send:hover { background: var(--gold-light); }
+    #panel-send:disabled { background: rgba(201,168,76,0.3); cursor: not-allowed; }
+
+    #panel-send svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--navy);
+    }
+
+    .panel-disclaimer {
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* push main content when panel opens */
+    body.panel-open #main-content {
+      margin-right: var(--panel-width);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      nav ul { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 48px 20px; }
+      .hero-card { display: none; }
+      .why-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      section { padding: 48px 20px; }
+      footer { flex-direction: column; gap: 8px; padding: 20px; }
+      body.panel-open #main-content { margin-right: 0; }
+      #chat-panel { width: 100vw; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <div id="main-content">
+
+    <!-- NAV -->
+    <nav>
+      <div class="logo">Turner <span>&</span> Associates</div>
+      <ul>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Why Us</a></li>
+        <li><a href="#">Testimonials</a></li>
+        <li><a href="#" class="nav-cta">Free Consultation</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-badge">No Win, No Fee Compensation Lawyers</div>
+        <h1>Adelaide's Trusted<br><em>Personal Injury</em><br>Law Firm</h1>
+        <p class="hero-sub">Fighting for injured Australians for over 70 years. Expert compensation lawyers with no upfront costs — you only pay when we win your case.</p>
+        <div class="hero-actions">
+          <button class="btn-primary">Free Consultation</button>
+          <button class="btn-outline">Our Services</button>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-num">70+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div>
+            <div class="stat-num">$1B+</div>
+            <div class="stat-label">Won for Clients</div>
+          </div>
+          <div>
+            <div class="stat-num">100%</div>
+            <div class="stat-label">No Win, No Fee</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card">
+          <h3>Our Practice Areas</h3>
+          <ul class="practice-list">
+            <li>Personal Injury & Compensation</li>
+            <li>Workers' Compensation</li>
+            <li>Motor Vehicle Accident Claims</li>
+            <li>Asbestos & Mesothelioma Claims</li>
+            <li>Medical Negligence</li>
+            <li>Superannuation, TPD & Insurance</li>
+            <li>Public Liability Claims</li>
+            <li>Industrial Deafness</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY US -->
+    <section>
+      <div class="section-label">Why Choose Us</div>
+      <h2 class="section-title">Decades of experience.<br>Results that speak.</h2>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">⚖️</div>
+          <h4>No Win, No Fee</h4>
+          <p>You pay nothing upfront. We only charge a fee when we win your case, so there's no financial risk to you.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🏆</div>
+          <h4>$1 Billion+ Recovered</h4>
+          <p>Our experienced team has recovered over a billion dollars in compensation for injured Australians over seven decades.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🤝</div>
+          <h4>Dedicated Case Managers</h4>
+          <p>Every client is assigned a dedicated case manager who provides regular updates and is always available to answer your questions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+      <div class="section-label">Client Stories</div>
+      <h2 class="section-title">What our clients say</h2>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <p class="testi-quote">"After my workplace accident I didn't know where to turn. Turner & Associates handled everything professionally and got me a settlement I never expected."</p>
+          <div class="testi-author">— Michael R., Workers' Compensation</div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-quote">"The team was compassionate and thorough. They kept me informed every step of the way and fought hard for the outcome I deserved."</p>
+          <div class="testi-author">— Sarah L., Motor Vehicle Claim</div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-quote">"I was hesitant to pursue a claim but the free consultation gave me the confidence to proceed. Best decision I ever made."</p>
+          <div class="testi-author">— James K., Public Liability</div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-quote">"Seven decades of experience shows. From the very first call I knew I was in safe hands. Highly recommend their medical negligence team."</p>
+          <div class="testi-author">— Patricia M., Medical Negligence</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section>
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Ready to discuss<br>your claim?</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p>Our experienced personal injury lawyers are ready to assess your case at no cost. Get in touch today for a confidential, obligation-free consultation.</p>
+          <div class="contact-detail">
+            <span>Phone: <strong>13 43 63</strong></span>
+            <span>Email: <strong>intake@turnerassociates.com.au</strong></span>
+            <span>Address: <strong>Level 12, 182 Victoria Square, Adelaide SA 5000</strong></span>
+            <span>Hours: <strong>Mon–Fri 8:30am – 5:30pm</strong></span>
+          </div>
+        </div>
+        <div>
+          <button class="btn-primary" style="width:100%;padding:18px;font-size:0.85rem;">Book Free Consultation</button>
+          <p style="font-size:0.72rem;color:var(--muted);margin-top:12px;text-align:center;">Or ask our AI assistant below — available 24/7</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2025 Turner & Associates Lawyers. All rights reserved.</p>
+      <p style="color:var(--gold);font-size:0.7rem;letter-spacing:0.06em;">NO WIN · NO FEE · NO RISK</p>
+    </footer>
+
+  </div><!-- /main-content -->
+</div><!-- /app -->
+
+<!-- ── CHAT BAR ── -->
+<div id="chat-bar">
+  <div id="chat-bar-icon">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l4.93-1.37C8.42 21.5 10.15 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.7 0-3.29-.47-4.65-1.28l-.33-.2-3.43.95.95-3.43-.2-.33C3.47 15.29 3 13.7 3 12c0-4.96 4.04-9 9-9s9 4.04 9 9-4.04 9-9 9z"/></svg>
+  </div>
+  <input id="chat-bar-input" type="text" placeholder="Ask about our services, your case, or compensation rights…" autocomplete="off"/>
+  <button id="chat-bar-send" aria-label="Send">
+    <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+  </button>
+</div>
+
+<!-- ── SIDE PANEL ── -->
+<div id="chat-panel">
+  <div id="panel-resizer"></div>
+
+  <div id="panel-header">
+    <div class="panel-title">
+      <div class="panel-avatar">T&A</div>
+      <div>
+        <div class="panel-name">Turner & Associates Assistant</div>
+        <div class="panel-status">Online — Ready to help</div>
+      </div>
+    </div>
+    <button id="panel-close" aria-label="Close chat">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+  </div>
+
+  <div id="messages"></div>
+
+  <div id="panel-input-area">
+    <div id="panel-input-wrap">
+      <input id="panel-input" type="text" placeholder="Ask about your case…" autocomplete="off"/>
+      <button id="panel-send" aria-label="Send">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+    <p class="panel-disclaimer">AI assistant — not legal advice. For urgent matters call 13 43 63.</p>
+  </div>
+</div>
+
+<script>
+  // ── STATE ──
+  const SYSTEM_PROMPT = `You are a helpful AI assistant for Turner & Associates, a personal injury law firm in Adelaide, Australia with over 70 years of experience. You help website visitors understand their legal rights, assess whether they may have a valid claim, and encourage them to book a free consultation.
+
+Practice areas: Personal Injury & Compensation, Workers' Compensation, Motor Vehicle Accident Claims, Asbestos & Mesothelioma Claims, Medical Negligence, Superannuation TPD & Insurance, Public Liability Claims, Industrial Deafness.
+
+Key facts: No win no fee. Over $1 billion recovered. Free consultations. Phone: 13 43 63.
+
+Keep responses concise, warm, and helpful. Never give specific legal advice — instead guide users toward booking a free consultation. Collect their name, contact details, and brief case description naturally in conversation when appropriate. Always end responses that involve a potential claim with an invitation to book a free consultation.`;
+
+  const chatHistory = [];
+  let panelOpen = false;
+  let isLoading = false;
+
+  // ── ELEMENTS ──
+  const chatBar      = document.getElementById('chat-bar');
+  const chatBarInput = document.getElementById('chat-bar-input');
+  const chatBarSend  = document.getElementById('chat-bar-send');
+  const chatPanel    = document.getElementById('chat-panel');
+  const panelClose   = document.getElementById('panel-close');
+  const messagesEl   = document.getElementById('messages');
+  const panelInput   = document.getElementById('panel-input');
+  const panelSend    = document.getElementById('panel-send');
+  const resizer      = document.getElementById('panel-resizer');
+
+  // ── OPEN PANEL ──
+  function openPanel() {
+    panelOpen = true;
+    chatPanel.classList.add('open');
+    chatBar.classList.add('hidden');
+    document.body.classList.add('panel-open');
+    setTimeout(() => panelInput.focus(), 320);
+  }
+
+  function closePanel() {
+    panelOpen = false;
+    chatPanel.classList.remove('open');
+    chatBar.classList.remove('hidden');
+    document.body.classList.remove('panel-open');
+  }
+
+  panelClose.addEventListener('click', closePanel);
+
+  // ── SEND FROM BAR ──
+  function sendFromBar() {
+    const text = chatBarInput.value.trim();
+    if (!text) return;
+    chatBarInput.value = '';
+    openPanel();
+    setTimeout(() => sendMessage(text), 350);
+  }
+
+  chatBarSend.addEventListener('click', sendFromBar);
+  chatBarInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendFromBar(); });
+
+  // ── SEND FROM PANEL ──
+  function sendFromPanel() {
+    const text = panelInput.value.trim();
+    if (!text || isLoading) return;
+    panelInput.value = '';
+    sendMessage(text);
+  }
+
+  panelSend.addEventListener('click', sendFromPanel);
+  panelInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendFromPanel(); });
+
+  // ── RENDER MESSAGE ──
+  function addMessage(role, content) {
+    const wrap = document.createElement('div');
+    wrap.className = `msg ${role}`;
+
+    const bubble = document.createElement('div');
+    bubble.className = 'msg-bubble';
+    bubble.textContent = content;
+
+    const time = document.createElement('div');
+    time.className = 'msg-time';
+    time.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    wrap.appendChild(bubble);
+    wrap.appendChild(time);
+    messagesEl.appendChild(wrap);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return wrap;
+  }
+
+  function addTyping() {
+    const wrap = document.createElement('div');
+    wrap.className = 'msg assistant';
+    wrap.id = 'typing-indicator';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'typing-bubble';
+    bubble.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+
+    wrap.appendChild(bubble);
+    messagesEl.appendChild(wrap);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function removeTyping() {
+    const t = document.getElementById('typing-indicator');
+    if (t) t.remove();
+  }
+
+  // ── CALL API ──
+  async function sendMessage(text) {
+    if (isLoading) return;
+    isLoading = true;
+    panelSend.disabled = true;
+
+    addMessage('user', text);
+    chatHistory.push({ role: 'user', content: text });
+
+    addTyping();
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 1000,
+          system: SYSTEM_PROMPT,
+          messages: chatHistory
+        })
+      });
+
+      const data = await res.json();
+      removeTyping();
+
+      const reply = data?.content?.[0]?.text || "I'm sorry, I had trouble understanding that. Could you rephrase your question?";
+      chatHistory.push({ role: 'assistant', content: reply });
+      addMessage('assistant', reply);
+
+    } catch (err) {
+      removeTyping();
+      addMessage('assistant', "I'm having trouble connecting right now. Please call us directly on 13 43 63 for immediate assistance.");
+    }
+
+    isLoading = false;
+    panelSend.disabled = false;
+    panelInput.focus();
+  }
+
+  // ── RESIZER ──
+  let isResizing = false;
+  let startX = 0;
+  let startWidth = 0;
+
+  resizer.addEventListener('mousedown', e => {
+    isResizing = true;
+    startX = e.clientX;
+    startWidth = chatPanel.offsetWidth;
+    resizer.classList.add('dragging');
+    document.body.style.userSelect = 'none';
+    document.body.style.cursor = 'ew-resize';
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!isResizing) return;
+    const delta = startX - e.clientX;
+    const newWidth = Math.min(Math.max(startWidth + delta, 300), 700);
+    chatPanel.style.width = newWidth + 'px';
+    document.documentElement.style.setProperty('--panel-width', newWidth + 'px');
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!isResizing) return;
+    isResizing = false;
+    resizer.classList.remove('dragging');
+    document.body.style.userSelect = '';
+    document.body.style.cursor = '';
+  });
+
+  // ── WELCOME MESSAGE ──
+  setTimeout(() => {
+    if (!panelOpen && messagesEl.children.length === 0) {
+      // pre-seed so it's ready when panel opens
+      chatHistory.push({
+        role: 'assistant',
+        content: "Hello! I'm the Turner & Associates virtual assistant. I can help you understand your legal rights, assess whether you may have a claim, and answer questions about our services. How can I help you today?"
+      });
+    }
+  }, 500);
+
+  // Show welcome when panel first opens
+  chatPanel.addEventListener('transitionend', () => {
+    if (panelOpen && messagesEl.children.length === 0 && chatHistory.length > 0) {
+      addMessage('assistant', chatHistory[0].content);
+    }
+  }, { once: false });
+
+  // Re-add after first open
+  const origOpen = openPanel;
+  let welcomed = false;
+  const wrappedOpen = function() {
+    origOpen();
+    if (!welcomed) {
+      welcomed = true;
+      setTimeout(() => {
+        if (messagesEl.children.length === 0) {
+          addMessage('assistant', "Hello! I'm the Turner & Associates virtual assistant. I can help you understand your legal rights, assess whether you may have a claim, and answer questions about our services. How can I help you today?");
+          chatHistory.unshift({
+            role: 'assistant',
+            content: "Hello! I'm the Turner & Associates virtual assistant. I can help you understand your legal rights, assess whether you may have a claim, and answer questions about our services. How can I help you today?"
+          });
+        }
+      }, 350);
+    }
+  };
+
+  // Override bar send to use wrapped open
+  chatBarSend.removeEventListener('click', sendFromBar);
+  chatBarInput.removeEventListener('keydown', () => {});
+
+  function sendFromBarV2() {
+    const text = chatBarInput.value.trim();
+    if (!text) return;
+    chatBarInput.value = '';
+    wrappedOpen();
+    setTimeout(() => sendMessage(text), 400);
+  }
+
+  chatBarSend.addEventListener('click', sendFromBarV2);
+  chatBarInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendFromBarV2(); });
+
+  // Also open panel on panel-close re-open attempts are handled above
+  // Handle case where someone clicks close then reopens via chatbar
+</script>
+</body>
+</html>
