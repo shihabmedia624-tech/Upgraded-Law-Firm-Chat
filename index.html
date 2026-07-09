@@ -4,119 +4,132 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Turner & Associates — Personal Injury Lawyers</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy: #0d1b2a;
-      --navy-mid: #162032;
-      --navy-light: #1e2e42;
+      --bg: #080f1a;
+      --surface: rgba(255,255,255,0.04);
+      --surface-hover: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.08);
+      --border-gold: rgba(201,168,76,0.25);
       --gold: #c9a84c;
       --gold-light: #e2c97e;
-      --white: #f5f2ec;
-      --muted: #8a9bb0;
-      --panel-width: 380px;
-      --chat-radius: 12px;
+      --gold-glow: rgba(201,168,76,0.15);
+      --white: #f0eee9;
+      --muted: #6b7d94;
+      --muted2: #9aafc7;
+      --panel-width: 400px;
+      --r-sm: 12px;
+      --r-md: 18px;
+      --r-lg: 24px;
+      --r-xl: 32px;
+      --r-full: 999px;
     }
 
     html, body {
       height: 100%;
       font-family: 'Inter', sans-serif;
-      background: var(--navy);
+      background: var(--bg);
       color: var(--white);
       overflow-x: hidden;
     }
 
-    /* ── LAYOUT SHELL ── */
-    #app {
-      display: flex;
-      height: 100vh;
-      transition: padding-right 0.3s ease;
-    }
+    #app { display: flex; min-height: 100vh; }
 
     #main-content {
       flex: 1;
       overflow-y: auto;
-      transition: margin-right 0.3s ease;
+      transition: margin-right 0.35s cubic-bezier(0.4,0,0.2,1);
     }
 
     /* ── NAV ── */
     nav {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 200;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 48px;
-      height: 68px;
-      background: rgba(13,27,42,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(8,15,26,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
     }
 
     .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 1.15rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
       color: var(--white);
+      letter-spacing: -0.02em;
     }
 
-    .logo span { color: var(--gold); }
-
-    nav ul {
-      display: flex;
-      gap: 36px;
-      list-style: none;
+    .logo em {
+      font-style: normal;
+      color: var(--gold);
     }
+
+    nav ul { display: flex; gap: 8px; list-style: none; align-items: center; }
 
     nav ul a {
       text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      transition: color 0.2s;
+      font-size: 0.82rem;
+      color: var(--muted2);
+      padding: 6px 14px;
+      border-radius: var(--r-full);
+      transition: color 0.2s, background 0.2s;
     }
 
-    nav ul a:hover { color: var(--gold); }
+    nav ul a:hover {
+      color: var(--white);
+      background: var(--surface);
+    }
 
     .nav-cta {
-      background: transparent;
-      border: 1px solid var(--gold);
-      color: var(--gold) !important;
-      padding: 8px 20px;
-      font-size: 0.75rem !important;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s !important;
+      background: var(--gold) !important;
+      color: #080f1a !important;
+      font-weight: 500 !important;
+      padding: 8px 20px !important;
+      border-radius: var(--r-full) !important;
+      transition: opacity 0.2s !important;
     }
 
-    .nav-cta:hover {
-      background: var(--gold) !important;
-      color: var(--navy) !important;
-    }
+    .nav-cta:hover { opacity: 0.88 !important; background: var(--gold) !important; }
 
     /* ── HERO ── */
     .hero {
-      min-height: calc(100vh - 68px);
+      min-height: calc(100vh - 64px);
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.1fr 0.9fr;
       align-items: center;
-      gap: 60px;
-      padding: 80px 48px;
+      gap: 48px;
+      padding: 80px 40px;
       position: relative;
       overflow: hidden;
     }
 
+    /* ambient blobs */
     .hero::before {
       content: '';
       position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%);
+      bottom: 0; left: 100px;
       pointer-events: none;
     }
 
@@ -124,177 +137,209 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--gold);
-      border: 1px solid rgba(201,168,76,0.3);
-      padding: 6px 14px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--border-gold);
+      padding: 6px 14px 6px 10px;
+      border-radius: var(--r-full);
       margin-bottom: 28px;
     }
 
-    .hero-badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
+    .hero-badge-dot {
+      width: 7px; height: 7px;
       background: var(--gold);
       border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
     }
 
     .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.8rem, 4.5vw, 4.2rem);
-      font-weight: 600;
-      line-height: 1.08;
-      letter-spacing: -0.01em;
-      margin-bottom: 24px;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(2.6rem, 4.2vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
     }
 
-    .hero h1 em {
-      font-style: italic;
-      color: var(--gold);
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .hero-sub {
       font-size: 1rem;
-      color: var(--muted);
-      line-height: 1.7;
-      max-width: 480px;
-      margin-bottom: 40px;
+      color: var(--muted2);
+      line-height: 1.75;
+      max-width: 460px;
+      margin-bottom: 36px;
       font-weight: 300;
     }
 
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
     .btn-primary {
       background: var(--gold);
-      color: var(--navy);
+      color: #080f1a;
       border: none;
-      padding: 14px 32px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      padding: 13px 28px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--r-full);
       cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.3);
     }
 
-    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(201,168,76,0.4);
+    }
 
     .btn-outline {
-      background: transparent;
+      background: var(--surface);
       color: var(--white);
-      border: 1px solid rgba(245,242,236,0.25);
-      padding: 14px 32px;
-      font-size: 0.8rem;
+      border: 1px solid var(--border);
+      padding: 13px 28px;
+      font-size: 0.85rem;
       font-weight: 400;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      border-radius: var(--r-full);
       cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
+      transition: background 0.2s, border-color 0.2s;
+      backdrop-filter: blur(8px);
     }
 
-    .btn-outline:hover { border-color: var(--white); }
+    .btn-outline:hover {
+      background: var(--surface-hover);
+      border-color: rgba(255,255,255,0.15);
+    }
 
     .hero-stats {
       display: flex;
-      gap: 40px;
-      margin-top: 56px;
-      padding-top: 40px;
-      border-top: 1px solid rgba(245,242,236,0.08);
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 36px;
+      border-top: 1px solid var(--border);
     }
 
     .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.4rem;
-      font-weight: 600;
-      color: var(--gold);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       line-height: 1;
     }
 
     .stat-label {
       font-size: 0.72rem;
       color: var(--muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-top: 6px;
+      margin-top: 5px;
+      font-weight: 400;
     }
 
-    /* hero right — practice areas card */
+    /* hero card — glassmorphism */
     .hero-card {
-      background: var(--navy-mid);
-      border: 1px solid rgba(201,168,76,0.12);
-      padding: 36px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 32px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
     }
 
     .hero-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
       color: var(--gold);
-      letter-spacing: 0.04em;
-      margin-bottom: 24px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
     }
 
-    .practice-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .practice-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
 
     .practice-list li {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 12px 14px;
-      font-size: 0.85rem;
-      color: var(--muted);
-      background: rgba(255,255,255,0.02);
+      gap: 10px;
+      padding: 10px 14px;
+      font-size: 0.83rem;
+      color: var(--muted2);
+      background: transparent;
+      border-radius: var(--r-sm);
       border: 1px solid transparent;
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      transition: all 0.2s;
       cursor: default;
     }
 
     .practice-list li:hover {
-      border-color: rgba(201,168,76,0.2);
+      background: rgba(201,168,76,0.06);
+      border-color: var(--border-gold);
       color: var(--white);
-      background: rgba(201,168,76,0.04);
     }
 
-    .practice-list li::before {
-      content: '⚖';
-      font-size: 0.7rem;
-      color: var(--gold);
-      opacity: 0.7;
+    .practice-list li .dot {
+      width: 5px; height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0.6;
+      flex-shrink: 0;
     }
 
     /* ── SECTIONS ── */
-    section {
-      padding: 80px 48px;
-    }
+    section { padding: 80px 40px; }
 
-    section + section {
-      border-top: 1px solid rgba(245,242,236,0.06);
-    }
-
-    .section-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 16px;
     }
 
+    .section-eyebrow::before {
+      content: '';
+      width: 20px; height: 1px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+
     .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.8rem, 2.5vw, 2.6rem);
-      font-weight: 600;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(1.8rem, 2.4vw, 2.5rem);
+      font-weight: 700;
       line-height: 1.15;
+      letter-spacing: -0.02em;
       margin-bottom: 48px;
     }
 
@@ -302,64 +347,120 @@
     .why-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
+      gap: 16px;
     }
 
     .why-card {
-      background: var(--navy-mid);
-      padding: 36px 28px;
-      border: 1px solid rgba(201,168,76,0.08);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 32px 28px;
+      transition: background 0.25s, border-color 0.25s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
     }
 
+    .why-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .why-card:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-gold);
+      transform: translateY(-3px);
+    }
+
+    .why-card:hover::after { opacity: 1; }
+
     .why-icon {
-      font-size: 1.4rem;
+      width: 44px; height: 44px;
+      background: var(--gold-glow);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--r-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
       margin-bottom: 20px;
     }
 
     .why-card h4 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 1.05rem;
       font-weight: 600;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
     }
 
     .why-card p {
       font-size: 0.82rem;
-      color: var(--muted);
+      color: var(--muted2);
       line-height: 1.7;
       font-weight: 300;
     }
 
     /* Testimonials */
-    .testimonials { background: var(--navy-mid); }
+    .testimonials { background: rgba(255,255,255,0.015); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 
     .testi-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
+      gap: 16px;
     }
 
     .testi-card {
-      background: var(--navy);
-      border: 1px solid rgba(201,168,76,0.1);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
       padding: 28px;
+      transition: border-color 0.2s;
     }
 
+    .testi-card:hover { border-color: var(--border-gold); }
+
+    .testi-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 16px;
+    }
+
+    .testi-stars span { color: var(--gold); font-size: 0.85rem; }
+
     .testi-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      font-style: italic;
-      line-height: 1.6;
-      color: var(--white);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--muted2);
       margin-bottom: 20px;
+      font-style: italic;
     }
 
     .testi-author {
-      font-size: 0.75rem;
-      color: var(--gold);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
+
+    .testi-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--gold-glow);
+      border: 1px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .testi-name { font-size: 0.78rem; font-weight: 500; color: var(--white); }
+    .testi-type { font-size: 0.7rem; color: var(--muted); margin-top: 1px; }
 
     /* Contact */
     .contact-grid {
@@ -370,47 +471,99 @@
     }
 
     .contact-info p {
-      font-size: 0.85rem;
-      color: var(--muted);
+      font-size: 0.88rem;
+      color: var(--muted2);
       line-height: 1.8;
       font-weight: 300;
+      margin-bottom: 28px;
     }
 
-    .contact-detail {
-      margin-top: 28px;
+    .contact-pills {
       display: flex;
       flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-pill {
+      display: flex;
+      align-items: center;
       gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 14px 18px;
+      font-size: 0.82rem;
     }
 
-    .contact-detail span {
-      font-size: 0.8rem;
+    .contact-pill-icon {
+      width: 32px; height: 32px;
+      background: var(--gold-glow);
+      border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .contact-pill-label { font-size: 0.68rem; color: var(--muted); display: block; }
+    .contact-pill-value { color: var(--white); font-weight: 500; display: block; margin-top: 1px; }
+
+    .contact-cta {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 36px;
+    }
+
+    .contact-cta h3 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .contact-cta p {
+      font-size: 0.82rem;
+      color: var(--muted2);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .contact-cta .btn-primary { width: 100%; padding: 16px; font-size: 0.88rem; border-radius: var(--r-md); }
+
+    .cta-note {
+      font-size: 0.7rem;
       color: var(--muted);
-    }
-
-    .contact-detail strong {
-      color: var(--white);
-      font-weight: 400;
+      text-align: center;
+      margin-top: 14px;
     }
 
     footer {
-      padding: 24px 48px;
-      border-top: 1px solid rgba(245,242,236,0.06);
+      padding: 28px 40px;
+      border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    footer p {
-      font-size: 0.72rem;
-      color: var(--muted);
+    footer p { font-size: 0.75rem; color: var(--muted); }
+
+    .footer-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--r-full);
+      padding: 5px 12px;
     }
 
-    /* ═══════════════════════════════════════
+    /* ═══════════════════════════
        CHAT SYSTEM
-    ═══════════════════════════════════════ */
+    ═══════════════════════════ */
 
-    /* Bottom bar — shown before first message */
     #chat-bar {
       position: fixed;
       bottom: 24px;
@@ -419,18 +572,21 @@
       z-index: 1000;
       display: flex;
       align-items: center;
-      gap: 0;
-      background: var(--navy-mid);
-      border: 1px solid rgba(201,168,76,0.25);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-      width: min(600px, calc(100vw - 48px));
+      background: rgba(20,30,46,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--r-full);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.1);
+      width: min(580px, calc(100vw - 32px));
       transition: opacity 0.25s, transform 0.25s;
+      overflow: hidden;
     }
 
     #chat-bar.hidden {
       opacity: 0;
       pointer-events: none;
-      transform: translateX(-50%) translateY(12px);
+      transform: translateX(-50%) translateY(10px);
     }
 
     #chat-bar-icon {
@@ -440,21 +596,16 @@
       width: 52px;
       height: 52px;
       flex-shrink: 0;
-      border-right: 1px solid rgba(201,168,76,0.15);
     }
 
-    #chat-bar-icon svg {
-      width: 20px;
-      height: 20px;
-      fill: var(--gold);
-    }
+    #chat-bar-icon svg { width: 18px; height: 18px; fill: var(--gold); }
 
     #chat-bar-input {
       flex: 1;
       background: transparent;
       border: none;
       outline: none;
-      padding: 0 16px;
+      padding: 0 8px;
       height: 52px;
       font-family: 'Inter', sans-serif;
       font-size: 0.85rem;
@@ -464,54 +615,46 @@
     #chat-bar-input::placeholder { color: var(--muted); }
 
     #chat-bar-send {
-      width: 52px;
-      height: 52px;
+      width: 40px; height: 40px;
       background: var(--gold);
       border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      border-radius: var(--r-full);
+      margin-right: 6px;
       flex-shrink: 0;
-      transition: background 0.2s;
+      transition: opacity 0.2s, transform 0.15s;
     }
 
-    #chat-bar-send:hover { background: var(--gold-light); }
-
-    #chat-bar-send svg {
-      width: 16px;
-      height: 16px;
-      fill: var(--navy);
-    }
+    #chat-bar-send:hover { opacity: 0.85; transform: scale(1.05); }
+    #chat-bar-send svg { width: 14px; height: 14px; fill: #080f1a; }
 
     /* ── SIDE PANEL ── */
     #chat-panel {
       position: fixed;
-      top: 0;
-      right: 0;
+      top: 0; right: 0;
       width: var(--panel-width);
       height: 100vh;
-      background: var(--navy-mid);
-      border-left: 1px solid rgba(201,168,76,0.15);
+      background: rgba(10,18,30,0.95);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-left: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       z-index: 500;
       transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-      box-shadow: -8px 0 32px rgba(0,0,0,0.4);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: -12px 0 48px rgba(0,0,0,0.5);
     }
 
-    #chat-panel.open {
-      transform: translateX(0);
-    }
+    #chat-panel.open { transform: translateX(0); }
 
-    /* Drag handle */
     #panel-resizer {
       position: absolute;
-      left: 0;
-      top: 0;
-      width: 4px;
-      height: 100%;
+      left: 0; top: 0;
+      width: 4px; height: 100%;
       cursor: ew-resize;
       background: transparent;
       transition: background 0.2s;
@@ -519,99 +662,82 @@
     }
 
     #panel-resizer:hover,
-    #panel-resizer.dragging {
-      background: rgba(201,168,76,0.4);
-    }
+    #panel-resizer.dragging { background: rgba(201,168,76,0.35); }
 
-    /* Panel header */
     #panel-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 16px 20px;
-      border-bottom: 1px solid rgba(201,168,76,0.12);
+      border-bottom: 1px solid var(--border);
       flex-shrink: 0;
     }
 
-    .panel-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .panel-title { display: flex; align-items: center; gap: 10px; }
 
     .panel-avatar {
-      width: 32px;
-      height: 32px;
-      background: var(--gold);
-      border-radius: 50%;
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: var(--r-sm);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--navy);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #080f1a;
     }
 
-    .panel-name {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--white);
-    }
+    .panel-name { font-size: 0.85rem; font-weight: 500; color: var(--white); }
 
     .panel-status {
-      font-size: 0.7rem;
-      color: #4caf7d;
+      font-size: 0.68rem;
+      color: #4ade80;
       display: flex;
       align-items: center;
       gap: 4px;
+      margin-top: 1px;
     }
 
     .panel-status::before {
       content: '';
-      width: 6px;
-      height: 6px;
-      background: #4caf7d;
+      width: 5px; height: 5px;
+      background: #4ade80;
       border-radius: 50%;
     }
 
     #panel-close {
-      background: none;
-      border: none;
-      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      color: var(--muted2);
       cursor: pointer;
-      padding: 4px;
+      padding: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: color 0.2s;
+      transition: background 0.2s, color 0.2s;
     }
 
-    #panel-close:hover { color: var(--white); }
+    #panel-close:hover { background: var(--surface-hover); color: var(--white); }
 
-    /* Messages */
     #messages {
       flex: 1;
       overflow-y: auto;
-      padding: 20px;
+      padding: 20px 16px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
       scroll-behavior: smooth;
     }
 
-    #messages::-webkit-scrollbar { width: 4px; }
+    #messages::-webkit-scrollbar { width: 3px; }
     #messages::-webkit-scrollbar-track { background: transparent; }
-    #messages::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.2); border-radius: 2px; }
+    #messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
 
-    .msg {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      animation: msgIn 0.2s ease;
-    }
+    .msg { display: flex; flex-direction: column; gap: 4px; animation: msgIn 0.2s ease; }
 
     @keyframes msgIn {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -619,48 +745,40 @@
     .msg.assistant { align-items: flex-start; }
 
     .msg-bubble {
-      max-width: 85%;
+      max-width: 84%;
       padding: 11px 15px;
-      font-size: 0.82rem;
+      font-size: 0.83rem;
       line-height: 1.65;
-      border-radius: var(--chat-radius);
     }
 
     .msg.user .msg-bubble {
-      background: var(--gold);
-      color: var(--navy);
-      border-bottom-right-radius: 3px;
-      font-weight: 400;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #080f1a;
+      border-radius: var(--r-md) var(--r-md) 4px var(--r-md);
+      font-weight: 500;
     }
 
     .msg.assistant .msg-bubble {
-      background: var(--navy-light);
+      background: rgba(255,255,255,0.06);
       color: var(--white);
-      border-bottom-left-radius: 3px;
-      border: 1px solid rgba(201,168,76,0.1);
+      border-radius: var(--r-md) var(--r-md) var(--r-md) 4px;
+      border: 1px solid var(--border);
     }
 
-    .msg-time {
-      font-size: 0.65rem;
-      color: var(--muted);
-      padding: 0 4px;
-    }
+    .msg-time { font-size: 0.63rem; color: var(--muted); padding: 0 4px; }
 
-    /* Typing indicator */
     .typing-bubble {
-      background: var(--navy-light);
-      border: 1px solid rgba(201,168,76,0.1);
-      padding: 14px 16px;
-      border-radius: var(--chat-radius);
-      border-bottom-left-radius: 3px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md) var(--r-md) var(--r-md) 4px;
+      padding: 14px 18px;
       display: flex;
       gap: 5px;
       align-items: center;
     }
 
     .typing-dot {
-      width: 6px;
-      height: 6px;
+      width: 6px; height: 6px;
       background: var(--muted);
       border-radius: 50%;
       animation: typingPulse 1.2s infinite ease-in-out;
@@ -670,90 +788,76 @@
     .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
     @keyframes typingPulse {
-      0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
+      0%, 80%, 100% { transform: scale(0.7); opacity: 0.35; }
       40% { transform: scale(1); opacity: 1; }
     }
 
-    /* Panel input */
     #panel-input-area {
-      padding: 16px 20px;
-      border-top: 1px solid rgba(201,168,76,0.12);
+      padding: 14px 16px 16px;
+      border-top: 1px solid var(--border);
       flex-shrink: 0;
     }
 
     #panel-input-wrap {
       display: flex;
       align-items: center;
-      gap: 0;
-      background: var(--navy);
-      border: 1px solid rgba(201,168,76,0.2);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: var(--r-full);
       transition: border-color 0.2s;
+      overflow: hidden;
+      padding: 4px 4px 4px 16px;
     }
 
-    #panel-input-wrap:focus-within {
-      border-color: rgba(201,168,76,0.5);
-    }
+    #panel-input-wrap:focus-within { border-color: var(--border-gold); }
 
     #panel-input {
       flex: 1;
       background: transparent;
       border: none;
       outline: none;
-      padding: 12px 14px;
       font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
+      font-size: 0.83rem;
       color: var(--white);
-      resize: none;
-      height: 44px;
-      line-height: 1.4;
+      height: 36px;
     }
 
     #panel-input::placeholder { color: var(--muted); }
 
     #panel-send {
-      width: 44px;
-      height: 44px;
+      width: 36px; height: 36px;
       background: var(--gold);
       border: none;
+      border-radius: var(--r-full);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: background 0.2s;
+      transition: opacity 0.2s;
     }
 
-    #panel-send:hover { background: var(--gold-light); }
-    #panel-send:disabled { background: rgba(201,168,76,0.3); cursor: not-allowed; }
-
-    #panel-send svg {
-      width: 14px;
-      height: 14px;
-      fill: var(--navy);
-    }
+    #panel-send:hover { opacity: 0.85; }
+    #panel-send:disabled { opacity: 0.35; cursor: not-allowed; }
+    #panel-send svg { width: 13px; height: 13px; fill: #080f1a; }
 
     .panel-disclaimer {
-      font-size: 0.65rem;
+      font-size: 0.63rem;
       color: var(--muted);
       text-align: center;
       margin-top: 10px;
     }
 
-    /* push main content when panel opens */
-    body.panel-open #main-content {
-      margin-right: var(--panel-width);
-    }
+    body.panel-open #main-content { margin-right: var(--panel-width); }
 
     @media (max-width: 768px) {
       nav { padding: 0 20px; }
       nav ul { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 48px 20px; }
+      .hero { grid-template-columns: 1fr; padding: 48px 20px; min-height: auto; }
       .hero-card { display: none; }
-      .why-grid { grid-template-columns: 1fr; }
-      .testi-grid { grid-template-columns: 1fr; }
-      .contact-grid { grid-template-columns: 1fr; }
-      section { padding: 48px 20px; }
-      footer { flex-direction: column; gap: 8px; padding: 20px; }
+      .why-grid, .testi-grid, .contact-grid { grid-template-columns: 1fr; }
+      section { padding: 56px 20px; }
+      footer { flex-direction: column; gap: 12px; padding: 20px; text-align: center; }
       body.panel-open #main-content { margin-right: 0; }
       #chat-panel { width: 100vw; }
     }
@@ -764,9 +868,8 @@
 <div id="app">
   <div id="main-content">
 
-    <!-- NAV -->
     <nav>
-      <div class="logo">Turner <span>&</span> Associates</div>
+      <div class="logo">Turner <em>&</em> Associates</div>
       <ul>
         <li><a href="#">Services</a></li>
         <li><a href="#">Why Us</a></li>
@@ -778,12 +881,15 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero-left">
-        <div class="hero-badge">No Win, No Fee Compensation Lawyers</div>
-        <h1>Adelaide's Trusted<br><em>Personal Injury</em><br>Law Firm</h1>
-        <p class="hero-sub">Fighting for injured Australians for over 70 years. Expert compensation lawyers with no upfront costs — you only pay when we win your case.</p>
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          No Win, No Fee Lawyers
+        </div>
+        <h1>Adelaide's Trusted<br><span class="highlight">Personal Injury</span><br>Law Firm</h1>
+        <p class="hero-sub">Fighting for injured Australians for over 70 years. Expert compensation lawyers — no upfront costs, no risk to you.</p>
         <div class="hero-actions">
           <button class="btn-primary">Free Consultation</button>
-          <button class="btn-outline">Our Services</button>
+          <button class="btn-outline">Our Services →</button>
         </div>
         <div class="hero-stats">
           <div>
@@ -803,16 +909,16 @@
 
       <div class="hero-right">
         <div class="hero-card">
-          <h3>Our Practice Areas</h3>
+          <h3>Practice Areas</h3>
           <ul class="practice-list">
-            <li>Personal Injury & Compensation</li>
-            <li>Workers' Compensation</li>
-            <li>Motor Vehicle Accident Claims</li>
-            <li>Asbestos & Mesothelioma Claims</li>
-            <li>Medical Negligence</li>
-            <li>Superannuation, TPD & Insurance</li>
-            <li>Public Liability Claims</li>
-            <li>Industrial Deafness</li>
+            <li><span class="dot"></span>Personal Injury & Compensation</li>
+            <li><span class="dot"></span>Workers' Compensation</li>
+            <li><span class="dot"></span>Motor Vehicle Accident Claims</li>
+            <li><span class="dot"></span>Asbestos & Mesothelioma Claims</li>
+            <li><span class="dot"></span>Medical Negligence</li>
+            <li><span class="dot"></span>Superannuation, TPD & Insurance</li>
+            <li><span class="dot"></span>Public Liability Claims</li>
+            <li><span class="dot"></span>Industrial Deafness</li>
           </ul>
         </div>
       </div>
@@ -820,95 +926,150 @@
 
     <!-- WHY US -->
     <section>
-      <div class="section-label">Why Choose Us</div>
+      <div class="section-eyebrow">Why Choose Us</div>
       <h2 class="section-title">Decades of experience.<br>Results that speak.</h2>
       <div class="why-grid">
         <div class="why-card">
           <div class="why-icon">⚖️</div>
           <h4>No Win, No Fee</h4>
-          <p>You pay nothing upfront. We only charge a fee when we win your case, so there's no financial risk to you.</p>
+          <p>You pay nothing upfront. We only charge when we win your case — so there's zero financial risk to you.</p>
         </div>
         <div class="why-card">
           <div class="why-icon">🏆</div>
           <h4>$1 Billion+ Recovered</h4>
-          <p>Our experienced team has recovered over a billion dollars in compensation for injured Australians over seven decades.</p>
+          <p>Over seven decades our team has recovered more than a billion dollars in compensation for injured Australians.</p>
         </div>
         <div class="why-card">
           <div class="why-icon">🤝</div>
           <h4>Dedicated Case Managers</h4>
-          <p>Every client is assigned a dedicated case manager who provides regular updates and is always available to answer your questions.</p>
+          <p>Every client gets a dedicated case manager — always available, always keeping you updated on your claim.</p>
         </div>
       </div>
     </section>
 
     <!-- TESTIMONIALS -->
     <section class="testimonials">
-      <div class="section-label">Client Stories</div>
+      <div class="section-eyebrow">Client Stories</div>
       <h2 class="section-title">What our clients say</h2>
       <div class="testi-grid">
         <div class="testi-card">
-          <p class="testi-quote">"After my workplace accident I didn't know where to turn. Turner & Associates handled everything professionally and got me a settlement I never expected."</p>
-          <div class="testi-author">— Michael R., Workers' Compensation</div>
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-quote">"After my workplace accident I didn't know where to turn. They handled everything professionally and secured a settlement I never expected."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">MR</div>
+            <div>
+              <div class="testi-name">Michael R.</div>
+              <div class="testi-type">Workers' Compensation</div>
+            </div>
+          </div>
         </div>
         <div class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
           <p class="testi-quote">"The team was compassionate and thorough. They kept me informed every step of the way and fought hard for the outcome I deserved."</p>
-          <div class="testi-author">— Sarah L., Motor Vehicle Claim</div>
+          <div class="testi-author">
+            <div class="testi-avatar">SL</div>
+            <div>
+              <div class="testi-name">Sarah L.</div>
+              <div class="testi-type">Motor Vehicle Claim</div>
+            </div>
+          </div>
         </div>
         <div class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
           <p class="testi-quote">"I was hesitant to pursue a claim but the free consultation gave me the confidence to proceed. Best decision I ever made."</p>
-          <div class="testi-author">— James K., Public Liability</div>
+          <div class="testi-author">
+            <div class="testi-avatar">JK</div>
+            <div>
+              <div class="testi-name">James K.</div>
+              <div class="testi-type">Public Liability</div>
+            </div>
+          </div>
         </div>
         <div class="testi-card">
-          <p class="testi-quote">"Seven decades of experience shows. From the very first call I knew I was in safe hands. Highly recommend their medical negligence team."</p>
-          <div class="testi-author">— Patricia M., Medical Negligence</div>
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-quote">"Seven decades of experience shows. From the very first call I knew I was in safe hands. Their medical negligence team is exceptional."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">PM</div>
+            <div>
+              <div class="testi-name">Patricia M.</div>
+              <div class="testi-type">Medical Negligence</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
     <section>
-      <div class="section-label">Get In Touch</div>
+      <div class="section-eyebrow">Get In Touch</div>
       <h2 class="section-title">Ready to discuss<br>your claim?</h2>
       <div class="contact-grid">
         <div class="contact-info">
           <p>Our experienced personal injury lawyers are ready to assess your case at no cost. Get in touch today for a confidential, obligation-free consultation.</p>
-          <div class="contact-detail">
-            <span>Phone: <strong>13 43 63</strong></span>
-            <span>Email: <strong>intake@turnerassociates.com.au</strong></span>
-            <span>Address: <strong>Level 12, 182 Victoria Square, Adelaide SA 5000</strong></span>
-            <span>Hours: <strong>Mon–Fri 8:30am – 5:30pm</strong></span>
+          <div class="contact-pills">
+            <div class="contact-pill">
+              <div class="contact-pill-icon">📞</div>
+              <div>
+                <span class="contact-pill-label">Phone</span>
+                <span class="contact-pill-value">13 43 63</span>
+              </div>
+            </div>
+            <div class="contact-pill">
+              <div class="contact-pill-icon">✉️</div>
+              <div>
+                <span class="contact-pill-label">Email</span>
+                <span class="contact-pill-value">intake@turnerassociates.com.au</span>
+              </div>
+            </div>
+            <div class="contact-pill">
+              <div class="contact-pill-icon">📍</div>
+              <div>
+                <span class="contact-pill-label">Address</span>
+                <span class="contact-pill-value">Level 12, 182 Victoria Square, Adelaide SA 5000</span>
+              </div>
+            </div>
+            <div class="contact-pill">
+              <div class="contact-pill-icon">🕐</div>
+              <div>
+                <span class="contact-pill-label">Hours</span>
+                <span class="contact-pill-value">Mon–Fri, 8:30am – 5:30pm</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div>
-          <button class="btn-primary" style="width:100%;padding:18px;font-size:0.85rem;">Book Free Consultation</button>
-          <p style="font-size:0.72rem;color:var(--muted);margin-top:12px;text-align:center;">Or ask our AI assistant below — available 24/7</p>
+        <div class="contact-cta">
+          <h3>Book a Free Consultation</h3>
+          <p>No commitment, no cost. Tell us about your situation and we'll let you know how we can help.</p>
+          <button class="btn-primary">Book Now — It's Free</button>
+          <p class="cta-note">Or ask our AI assistant below — available 24/7</p>
         </div>
       </div>
     </section>
 
     <footer>
       <p>© 2025 Turner & Associates Lawyers. All rights reserved.</p>
-      <p style="color:var(--gold);font-size:0.7rem;letter-spacing:0.06em;">NO WIN · NO FEE · NO RISK</p>
+      <div class="footer-badge">
+        <span style="color:var(--gold)">✦</span> No Win · No Fee · No Risk
+      </div>
     </footer>
 
-  </div><!-- /main-content -->
-</div><!-- /app -->
+  </div>
+</div>
 
-<!-- ── CHAT BAR ── -->
+<!-- CHAT BAR -->
 <div id="chat-bar">
   <div id="chat-bar-icon">
     <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l4.93-1.37C8.42 21.5 10.15 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.7 0-3.29-.47-4.65-1.28l-.33-.2-3.43.95.95-3.43-.2-.33C3.47 15.29 3 13.7 3 12c0-4.96 4.04-9 9-9s9 4.04 9 9-4.04 9-9 9z"/></svg>
   </div>
-  <input id="chat-bar-input" type="text" placeholder="Ask about our services, your case, or compensation rights…" autocomplete="off"/>
+  <input id="chat-bar-input" type="text" placeholder="Ask about your case or our services…" autocomplete="off"/>
   <button id="chat-bar-send" aria-label="Send">
     <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
   </button>
 </div>
 
-<!-- ── SIDE PANEL ── -->
+<!-- SIDE PANEL -->
 <div id="chat-panel">
   <div id="panel-resizer"></div>
-
   <div id="panel-header">
     <div class="panel-title">
       <div class="panel-avatar">T&A</div>
@@ -917,8 +1078,8 @@
         <div class="panel-status">Online — Ready to help</div>
       </div>
     </div>
-    <button id="panel-close" aria-label="Close chat">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    <button id="panel-close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
     </button>
   </div>
 
@@ -931,25 +1092,16 @@
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
-    <p class="panel-disclaimer">AI assistant — not legal advice. For urgent matters call 13 43 63.</p>
+    <p class="panel-disclaimer">AI assistant — not legal advice. Call 13 43 63 for urgent matters.</p>
   </div>
 </div>
 
 <script>
-  // ── STATE ──
-  const SYSTEM_PROMPT = `You are a helpful AI assistant for Turner & Associates, a personal injury law firm in Adelaide, Australia with over 70 years of experience. You help website visitors understand their legal rights, assess whether they may have a valid claim, and encourage them to book a free consultation.
-
-Practice areas: Personal Injury & Compensation, Workers' Compensation, Motor Vehicle Accident Claims, Asbestos & Mesothelioma Claims, Medical Negligence, Superannuation TPD & Insurance, Public Liability Claims, Industrial Deafness.
-
-Key facts: No win no fee. Over $1 billion recovered. Free consultations. Phone: 13 43 63.
-
-Keep responses concise, warm, and helpful. Never give specific legal advice — instead guide users toward booking a free consultation. Collect their name, contact details, and brief case description naturally in conversation when appropriate. Always end responses that involve a potential claim with an invitation to book a free consultation.`;
-
   const chatHistory = [];
   let panelOpen = false;
   let isLoading = false;
+  let welcomed = false;
 
-  // ── ELEMENTS ──
   const chatBar      = document.getElementById('chat-bar');
   const chatBarInput = document.getElementById('chat-bar-input');
   const chatBarSend  = document.getElementById('chat-bar-send');
@@ -960,13 +1112,23 @@ Keep responses concise, warm, and helpful. Never give specific legal advice — 
   const panelSend    = document.getElementById('panel-send');
   const resizer      = document.getElementById('panel-resizer');
 
-  // ── OPEN PANEL ──
+  const WELCOME = "Hi! I'm the Turner & Associates virtual assistant. I can help you understand your legal rights, check whether you may have a valid claim, and answer questions about our services. What can I help you with today?";
+
   function openPanel() {
     panelOpen = true;
     chatPanel.classList.add('open');
     chatBar.classList.add('hidden');
     document.body.classList.add('panel-open');
-    setTimeout(() => panelInput.focus(), 320);
+    if (!welcomed) {
+      welcomed = true;
+      setTimeout(() => {
+        if (messagesEl.children.length === 0) {
+          addMessage('assistant', WELCOME);
+          chatHistory.unshift({ role: 'assistant', content: WELCOME });
+        }
+      }, 300);
+    }
+    setTimeout(() => panelInput.focus(), 350);
   }
 
   function closePanel() {
@@ -978,19 +1140,14 @@ Keep responses concise, warm, and helpful. Never give specific legal advice — 
 
   panelClose.addEventListener('click', closePanel);
 
-  // ── SEND FROM BAR ──
   function sendFromBar() {
     const text = chatBarInput.value.trim();
     if (!text) return;
     chatBarInput.value = '';
     openPanel();
-    setTimeout(() => sendMessage(text), 350);
+    setTimeout(() => sendMessage(text), 420);
   }
 
-  chatBarSend.addEventListener('click', sendFromBar);
-  chatBarInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendFromBar(); });
-
-  // ── SEND FROM PANEL ──
   function sendFromPanel() {
     const text = panelInput.value.trim();
     if (!text || isLoading) return;
@@ -998,22 +1155,20 @@ Keep responses concise, warm, and helpful. Never give specific legal advice — 
     sendMessage(text);
   }
 
+  chatBarSend.addEventListener('click', sendFromBar);
+  chatBarInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendFromBar(); });
   panelSend.addEventListener('click', sendFromPanel);
   panelInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendFromPanel(); });
 
-  // ── RENDER MESSAGE ──
   function addMessage(role, content) {
     const wrap = document.createElement('div');
     wrap.className = `msg ${role}`;
-
     const bubble = document.createElement('div');
     bubble.className = 'msg-bubble';
     bubble.textContent = content;
-
     const time = document.createElement('div');
     time.className = 'msg-time';
     time.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
     wrap.appendChild(bubble);
     wrap.appendChild(time);
     messagesEl.appendChild(wrap);
@@ -1025,11 +1180,9 @@ Keep responses concise, warm, and helpful. Never give specific legal advice — 
     const wrap = document.createElement('div');
     wrap.className = 'msg assistant';
     wrap.id = 'typing-indicator';
-
     const bubble = document.createElement('div');
     bubble.className = 'typing-bubble';
     bubble.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-
     wrap.appendChild(bubble);
     messagesEl.appendChild(wrap);
     messagesEl.scrollTop = messagesEl.scrollHeight;
@@ -1040,7 +1193,6 @@ Keep responses concise, warm, and helpful. Never give specific legal advice — 
     if (t) t.remove();
   }
 
-  // ── CALL API ──
   async function sendMessage(text) {
     if (isLoading) return;
     isLoading = true;
@@ -1048,31 +1200,31 @@ Keep responses concise, warm, and helpful. Never give specific legal advice — 
 
     addMessage('user', text);
     chatHistory.push({ role: 'user', content: text });
-
     addTyping();
 
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('https://shihabsakif2767.duckdns.org/webhook-test/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 1000,
-          system: SYSTEM_PROMPT,
-          messages: chatHistory
+          message: text,
+          history: chatHistory.slice(0, -1)
         })
       });
 
       const data = await res.json();
       removeTyping();
 
-      const reply = data?.content?.[0]?.text || "I'm sorry, I had trouble understanding that. Could you rephrase your question?";
+      const reply = data?.output || data?.reply || data?.text || data?.message
+        || (typeof data === 'string' ? data : null)
+        || "I'm sorry, I had trouble with that. Could you rephrase your question?";
+
       chatHistory.push({ role: 'assistant', content: reply });
       addMessage('assistant', reply);
 
     } catch (err) {
       removeTyping();
-      addMessage('assistant', "I'm having trouble connecting right now. Please call us directly on 13 43 63 for immediate assistance.");
+      addMessage('assistant', "I'm having trouble connecting right now. Please call us on 13 43 63 for immediate assistance.");
     }
 
     isLoading = false;
@@ -1080,10 +1232,8 @@ Keep responses concise, warm, and helpful. Never give specific legal advice — 
     panelInput.focus();
   }
 
-  // ── RESIZER ──
-  let isResizing = false;
-  let startX = 0;
-  let startWidth = 0;
+  // Resizer
+  let isResizing = false, startX = 0, startWidth = 0;
 
   resizer.addEventListener('mousedown', e => {
     isResizing = true;
@@ -1096,8 +1246,7 @@ Keep responses concise, warm, and helpful. Never give specific legal advice — 
 
   document.addEventListener('mousemove', e => {
     if (!isResizing) return;
-    const delta = startX - e.clientX;
-    const newWidth = Math.min(Math.max(startWidth + delta, 300), 700);
+    const newWidth = Math.min(Math.max(startWidth + (startX - e.clientX), 300), 700);
     chatPanel.style.width = newWidth + 'px';
     document.documentElement.style.setProperty('--panel-width', newWidth + 'px');
   });
@@ -1109,61 +1258,6 @@ Keep responses concise, warm, and helpful. Never give specific legal advice — 
     document.body.style.userSelect = '';
     document.body.style.cursor = '';
   });
-
-  // ── WELCOME MESSAGE ──
-  setTimeout(() => {
-    if (!panelOpen && messagesEl.children.length === 0) {
-      // pre-seed so it's ready when panel opens
-      chatHistory.push({
-        role: 'assistant',
-        content: "Hello! I'm the Turner & Associates virtual assistant. I can help you understand your legal rights, assess whether you may have a claim, and answer questions about our services. How can I help you today?"
-      });
-    }
-  }, 500);
-
-  // Show welcome when panel first opens
-  chatPanel.addEventListener('transitionend', () => {
-    if (panelOpen && messagesEl.children.length === 0 && chatHistory.length > 0) {
-      addMessage('assistant', chatHistory[0].content);
-    }
-  }, { once: false });
-
-  // Re-add after first open
-  const origOpen = openPanel;
-  let welcomed = false;
-  const wrappedOpen = function() {
-    origOpen();
-    if (!welcomed) {
-      welcomed = true;
-      setTimeout(() => {
-        if (messagesEl.children.length === 0) {
-          addMessage('assistant', "Hello! I'm the Turner & Associates virtual assistant. I can help you understand your legal rights, assess whether you may have a claim, and answer questions about our services. How can I help you today?");
-          chatHistory.unshift({
-            role: 'assistant',
-            content: "Hello! I'm the Turner & Associates virtual assistant. I can help you understand your legal rights, assess whether you may have a claim, and answer questions about our services. How can I help you today?"
-          });
-        }
-      }, 350);
-    }
-  };
-
-  // Override bar send to use wrapped open
-  chatBarSend.removeEventListener('click', sendFromBar);
-  chatBarInput.removeEventListener('keydown', () => {});
-
-  function sendFromBarV2() {
-    const text = chatBarInput.value.trim();
-    if (!text) return;
-    chatBarInput.value = '';
-    wrappedOpen();
-    setTimeout(() => sendMessage(text), 400);
-  }
-
-  chatBarSend.addEventListener('click', sendFromBarV2);
-  chatBarInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendFromBarV2(); });
-
-  // Also open panel on panel-close re-open attempts are handled above
-  // Handle case where someone clicks close then reopens via chatbar
 </script>
 </body>
 </html>
