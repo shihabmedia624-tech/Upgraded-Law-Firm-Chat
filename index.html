@@ -1203,7 +1203,7 @@
     addTyping();
 
     try {
-      const res = await fetch('https://shihabsakif2767.duckdns.org/webhook-test/chat', {
+      const res = await fetch('http://localhost:5678/webhook-test/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
